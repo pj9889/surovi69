@@ -8,7 +8,7 @@
 <style>
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
+  font-family: Arial;
   background: #f5f5f5;
 }
 
@@ -17,17 +17,13 @@ body {
   background: white;
   border: 1px solid black;
   overflow: hidden;
-  white-space: nowrap;
 }
-
 .marquee p {
-  display: inline-block;
   color: red;
-  font-weight: bold;
   padding: 10px;
+  white-space: nowrap;
   animation: scroll 15s linear infinite;
 }
-
 @keyframes scroll {
   from { transform: translateX(100%); }
   to { transform: translateX(-100%); }
@@ -39,25 +35,20 @@ body {
   gap: 10px;
   padding: 10px;
 }
-
 .image-box img {
   width: 50%;
   aspect-ratio: 4/6;
-  object-fit: cover;
   border-radius: 10px;
 }
 
-/* Section Title */
+/* Title */
 .section-title {
   padding: 10px;
-  font-size: 18px;
-  color: black;
   border-bottom: 3px solid red;
-  width: fit-content;
   margin: 10px;
 }
 
-/* Service Box */
+/* Service */
 .service-box {
   background: pink;
   border: 1px solid black;
@@ -65,141 +56,201 @@ body {
   padding: 10px;
   border-radius: 10px;
 }
-
 .service-item {
-  margin: 10px 0;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  margin: 10px 0;
+  cursor: pointer;
 }
 
-/* Messenger Section */
+/* Shake animation */
+.shake {
+  animation: shake 0.4s;
+}
+@keyframes shake {
+  0% {transform: translateX(0);}
+  25% {transform: translateX(-5px);}
+  50% {transform: translateX(5px);}
+  75% {transform: translateX(-5px);}
+  100% {transform: translateX(0);}
+}
+
+/* Messenger */
 .messenger-box {
   display: none;
+  background: #fff;
   margin: 10px;
   padding: 10px;
-  background: #fff;
   border-radius: 10px;
 }
 
-.messenger-item {
-  margin: 10px 0;
-}
-
-/* Input Box */
 .input-area {
   display: none;
   margin-top: 10px;
 }
-
-.input-area input {
+input[type="text"] {
   width: 100%;
   padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
 }
 
 /* Button */
 .buy-btn {
-  display: none;
   width: 90%;
   margin: 20px auto;
   padding: 15px;
-  background: linear-gradient(45deg, #ff0066, #ff3399);
+  background: #ff0066;
   color: white;
-  font-size: 18px;
   border: none;
   border-radius: 30px;
-  cursor: pointer;
-  display: block;
+  font-size: 18px;
+}
+
+/* Loading */
+#loading {
+  display: none;
+  text-align: center;
+  font-size: 20px;
+  padding: 20px;
+}
+
+/* Payment page */
+#paymentPage {
+  display: none;
+  padding: 20px;
   text-align: center;
 }
-
-.buy-btn:hover {
-  opacity: 0.9;
-}
 </style>
-</head>
 
+</head>
 <body>
 
-<!-- Marquee -->
+<!-- Main Page -->
+<div id="mainPage">
+
 <div class="marquee">
-  <p>আমার নাম সুরভী 😚 আমি ভিডিও কলে রেগুলার সার্ভিস দিয়ে থাকি 😘 সার্ভিস নিতে নিচে থাকা "আপনার মেসেঞ্জার এবং কত মিনিট সার্ভিস নিবেন তা সম্পূর্ণ করুন"</p>
+<p>আমার নাম সুরভী 😚 আমি ভিডিও কলে রেগুলার সার্ভিস দিয়ে থাকি 😘 সার্ভিস নিতে নিচে থাকা "আপনার মেসেঞ্জার এবং কত মিনিট সার্ভিস নিবেন তা সম্পূর্ণ করুন"</p>
 </div>
 
-<!-- Images -->
 <div class="image-box">
-  <img src="https://via.placeholder.com/300x450">
-  <img src="https://via.placeholder.com/300x450">
+<img src="https://via.placeholder.com/300x450">
+<img src="https://via.placeholder.com/300x450">
 </div>
 
-<!-- Title -->
-<div class="section-title">
-  কতক্ষণ সার্ভিস নিবেন বাছাই করুন:
+<div class="section-title">কতক্ষণ সার্ভিস নিবেন বাছাই করুন:</div>
+
+<div class="service-box" id="serviceBox">
+
+<div class="service-item" onclick="selectService(0)">
+<span>৩ মিনিট - ১৫০ টাকা</span>
+<input type="radio" name="service">
 </div>
 
-<!-- Service List -->
-<div class="service-box">
-  <div class="service-item">
-    ৩ মিনিট - ১৫০ টাকা
-    <input type="radio" name="service" onclick="showMessenger()">
-  </div>
-  <div class="service-item">
-    ৫ মিনিট - ২৫০ টাকা
-    <input type="radio" name="service" onclick="showMessenger()">
-  </div>
-  <div class="service-item">
-    ১০ মিনিট - ৪০০ টাকা
-    <input type="radio" name="service" onclick="showMessenger()">
-  </div>
+<div class="service-item" onclick="selectService(1)">
+<span>৫ মিনিট - ২৫০ টাকা</span>
+<input type="radio" name="service">
 </div>
 
-<!-- Messenger Section -->
+<div class="service-item" onclick="selectService(2)">
+<span>১০ মিনিট - ৪০০ টাকা</span>
+<input type="radio" name="service">
+</div>
+
+</div>
+
 <div class="messenger-box" id="messengerBox">
 
-  <div class="section-title">আপনার মেসেঞ্জার বাছাই করুন:</div>
+<div class="section-title">আপনার মেসেঞ্জার বাছাই করুন:</div>
 
-  <div class="messenger-item">
-    <input type="radio" name="msg" onclick="showInput('whatsapp')"> WhatsApp
-  </div>
+<div onclick="selectMessenger(0)">
+<input type="radio" name="msg"> WhatsApp
+</div>
 
-  <div class="messenger-item">
-    <input type="radio" name="msg" onclick="showInput('telegram')"> Telegram
-  </div>
+<div onclick="selectMessenger(1)">
+<input type="radio" name="msg"> Telegram
+</div>
 
-  <div class="messenger-item">
-    <input type="radio" name="msg" onclick="showInput('imo')"> Imo
-  </div>
+<div onclick="selectMessenger(2)">
+<input type="radio" name="msg"> Imo
+</div>
 
-  <!-- Input -->
-  <div class="input-area" id="inputArea">
-    <p style="color:red; font-size:14px;" id="inputLabel"></p>
-    <input type="text" placeholder="আপনার নাম্বার / ইউজারনেম লিখুন">
-  </div>
+<div class="input-area" id="inputArea">
+<p id="inputLabel" style="color:red;"></p>
+<input type="text" id="userInput">
+</div>
 
 </div>
 
-<!-- Button -->
-<button class="buy-btn" id="buyBtn">সার্ভিস কিনুন</button>
+<button class="buy-btn" onclick="buyService()">সার্ভিস কিনুন</button>
+
+<div id="loading">⏳ অপেক্ষা করুন...</div>
+
+</div>
+
+<!-- Payment Page -->
+<div id="paymentPage">
+<h2>💰 পেমেন্ট</h2>
+</div>
 
 <script>
 
-function showMessenger() {
+let serviceSelected = false;
+let messengerSelected = false;
+
+function selectService(i){
+  let radios = document.getElementsByName("service");
+  radios[i].checked = true;
+  serviceSelected = true;
+
   document.getElementById("messengerBox").style.display = "block";
 }
 
-function showInput(type) {
-  let label = "";
-
-  if(type === "whatsapp") label = "WhatsApp নাম্বার দিন";
-  if(type === "telegram") label = "Telegram ইউজারনেম দিন";
-  if(type === "imo") label = "Imo নাম্বার দিন";
+function selectMessenger(i){
+  let radios = document.getElementsByName("msg");
+  radios[i].checked = true;
+  messengerSelected = true;
 
   document.getElementById("inputArea").style.display = "block";
-  document.getElementById("inputLabel").innerText = label;
 
-  document.getElementById("buyBtn").style.display = "block";
+  let names = ["WhatsApp নাম্বার দিন","Telegram ইউজারনেম দিন","Imo নাম্বার দিন"];
+  document.getElementById("inputLabel").innerText = names[i];
+}
+
+function buyService(){
+
+  let serviceBox = document.getElementById("serviceBox");
+  let messengerBox = document.getElementById("messengerBox");
+  let input = document.getElementById("userInput").value;
+
+  if(!serviceSelected){
+    serviceBox.classList.add("shake");
+    setTimeout(()=>serviceBox.classList.remove("shake"),400);
+    alert("⚠️ আগে সার্ভিস সিলেক্ট করুন");
+    return;
+  }
+
+  if(!messengerSelected){
+    messengerBox.classList.add("shake");
+    setTimeout(()=>messengerBox.classList.remove("shake"),400);
+    alert("⚠️ মেসেঞ্জার সিলেক্ট করুন");
+    return;
+  }
+
+  if(input.trim()==""){
+    document.getElementById("inputArea").classList.add("shake");
+    setTimeout(()=>document.getElementById("inputArea").classList.remove("shake"),400);
+    alert("⚠️ আপনার তথ্য দিন");
+    return;
+  }
+
+  // Loading
+  document.getElementById("loading").style.display = "block";
+
+  setTimeout(()=>{
+    document.getElementById("mainPage").style.display = "none";
+    document.getElementById("loading").style.display = "none";
+    document.getElementById("paymentPage").style.display = "block";
+  },2000);
+
 }
 
 </script>
